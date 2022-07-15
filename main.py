@@ -101,7 +101,7 @@ def main():
                         comment.body.split('u/sorosbucksbot balance u/')[1].split(' ')[0])
                 except ValueError:
                     # if the account does not exist, tell the user
-                    comment.reply('That user does not have an account.')
+                    comment.reply('That user does not have an account. Create an account with `u/sorosbucksbot create`.')
                     bank.save('bank.json')
                     continue
                 # if the account exists, tell the user
@@ -114,7 +114,7 @@ def main():
                     account = bank.get_account(comment.author.name.lower())
                 except ValueError:
                     # if the account does not exist, tell the user
-                    comment.reply('You do not have an account.')
+                    comment.reply('You do not have an account. Create an account with `u/sorosbucksbot create`.')
                     continue
                 # if the account exists, tell the user
                 comment.reply(f'Balance: {account.balance}')
@@ -127,11 +127,13 @@ def main():
                     my_account = bank.get_account(comment.author.name.lower())
                 except ValueError:
                     # if the account does not exist, tell the user
-                    comment.reply('You do not have an account.')
+                    comment.reply('You do not have an account. Create an account with `u/sorosbucksbot create`.')
                     continue
                 try:
                     # try to get the account of the transferee
                     amount = int(comment.body.split('u/sorosbucksbot transfer ')[1].split(' ')[0])
+                    if amount <= 0:
+                        raise ValueError
                 except ValueError:
                     # if the amount is doesn't exist, tell the user
                     comment.reply('Invalid amount.')
