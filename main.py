@@ -176,6 +176,7 @@ def main():
                 approved_users = [mod for mod in nl.moderator()]
                 # dev is also approved too
                 approved_users.append('HexagonOfVirtue')
+                approved_users.append('qtnl')
                 # if the user is trying to be sus and issue sorosbucks, but they aren't allowed to, tell them!
                 if comment.author.name not in approved_users:
                     comment.reply('You must be a moderator to issue sorosbucks.')
